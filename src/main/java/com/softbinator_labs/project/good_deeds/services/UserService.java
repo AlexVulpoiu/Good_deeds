@@ -47,7 +47,7 @@ public class UserService {
     }
 
     @SneakyThrows
-    public TokenDto registerUser(RegisterUserDto registerUserDto) {
+    public TokenDto registerUser(RegisterUserDto registerUserDto, String userRole) {
 
         if(userRepository.existsByUsername(registerUserDto.getUsername())) {
             throw new BadRequestException("User with username " + registerUserDto.getUsername() + " already exists!");
@@ -73,6 +73,6 @@ public class UserService {
 
         Long userId = userRepository.save(newUser).getId();
 
-        return keycloakAdminService.addUserToKeycloak(userId, registerUserDto.getPassword());
+        return keycloakAdminService.addUserToKeycloak(userId, registerUserDto.getPassword(), userRole);
     }
 }
