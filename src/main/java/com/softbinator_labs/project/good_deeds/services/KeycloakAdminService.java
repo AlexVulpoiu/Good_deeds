@@ -17,6 +17,7 @@ import org.springframework.util.MultiValueMap;
 import javax.annotation.PostConstruct;
 import javax.ws.rs.core.Response;
 import java.util.Collections;
+import java.util.List;
 
 import static org.keycloak.admin.client.CreatedResponseUtil.getCreatedId;
 
@@ -48,7 +49,7 @@ public class KeycloakAdminService {
         this.realm = this.keycloak.realm(keycloakRealm);
     }
 
-    public TokenDto addUserToKeycloak(Long userId, String password) {
+    public TokenDto addUserToKeycloak(Long userId, String password, String userRole) {
         // create a new user
         UserRepresentation keycloakUser = new UserRepresentation();
         keycloakUser.setEnabled(true);
@@ -70,8 +71,13 @@ public class KeycloakAdminService {
 
         // add ROLE_USER to the user
         UserResource userResource = realm.users().get(keycloakUserId);
-        RoleRepresentation roleRepresentation = realm.roles().get("ROLE_USER").toRepresentation();
-        userResource.roles().realmLevel().add(Collections.singletonList(roleRepresentation));
+        RoleRepresentation userRoleRepresentation = realm.roles().get("ROLE_USER").toRepresentation();
+        if(userRole.equals("ROLE_ADMIN")) {
+            RoleRepresentation adminRoleRepresentation = realm.roles().get("ROLE_ADMIN").toRepresentation();
+            userResource.roles().realmLevel().add(List.of(userRoleRepresentation, adminRoleRepresentation));
+        } else {
+            userResource.roles().realmLevel().add(Collections.singletonList(userRoleRepresentation));
+        }
 
         // login request for getting token
         MultiValueMap<String, String> loginCredentials = new LinkedMultiValueMap<>();

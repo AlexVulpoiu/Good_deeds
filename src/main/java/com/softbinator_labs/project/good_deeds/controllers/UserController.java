@@ -34,6 +34,11 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUserDto registerUserDto) {
-        return new ResponseEntity<>(userService.registerUser(registerUserDto), HttpStatus.OK);
+        return new ResponseEntity<>(userService.registerUser(registerUserDto, "ROLE_USER"), HttpStatus.OK);
+    }
+
+    @PostMapping("/registerAdmin")
+    public ResponseEntity<?> registerAdmin(@Valid @RequestBody RegisterUserDto registerUserDto) {
+        return new ResponseEntity<>(userService.registerUser(registerUserDto, "ROLE_ADMIN"), HttpStatus.OK);
     }
 }
