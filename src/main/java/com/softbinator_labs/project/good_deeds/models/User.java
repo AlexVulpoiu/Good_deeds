@@ -28,7 +28,7 @@ public class User {
 
     @NotNull
     @Email
-    @Column(length = 320)
+    @Column(unique = true, length = 320)
     private String email;
 
     @NotBlank
@@ -46,14 +46,14 @@ public class User {
     @Column(name = "last_name", length = 30)
     private String lastName;
 
+    @NotBlank
+    @Size(min = 10, max = 10)
+    @Pattern(regexp = "^07\\d{8}$")
+    @Column(unique = true, length = 10)
+    private String phone;
+
     @NotNull
     private Integer points;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<GeneratedVoucher> vouchers;
