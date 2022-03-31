@@ -4,10 +4,7 @@ package com.softbinator_labs.project.good_deeds.models;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -58,10 +55,12 @@ public class CharityEvent {
     private String location;
 
     @NotNull
+    @Future
     @Column(name = "start_date")
     private LocalDate startDate;
 
     @NotNull
+    @Future
     @Column(name = "end_date")
     private LocalDate endDate;
 

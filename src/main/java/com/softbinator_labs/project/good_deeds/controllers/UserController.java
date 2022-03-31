@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -31,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody RegisterUserDto registerUserDto) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUserDto registerUserDto) {
         return new ResponseEntity<>(userService.registerUser(registerUserDto), HttpStatus.OK);
     }
 }
