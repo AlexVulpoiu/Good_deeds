@@ -34,7 +34,7 @@ public class Donation {
     private CharityEvent event;
 
     public Donation(User user, CharityEvent charityEvent, Integer amount) {
-        DonationId id = new DonationId(user.getId(), charityEvent.getId(), LocalDate.now(), LocalTime.now());
+        this.id = new DonationId(user.getId(), charityEvent.getId(), LocalDate.now(), LocalTime.now());
         this.amount = amount;
         this.user = user;
         this.event = charityEvent;

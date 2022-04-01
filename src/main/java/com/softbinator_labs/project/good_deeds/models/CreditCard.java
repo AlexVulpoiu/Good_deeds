@@ -19,28 +19,27 @@ public class CreditCard {
     private Long id;
 
     @NotBlank
-    @Size(min = 16, max = 16)
-    @Pattern(regexp = "^[1-9]\\d{15}$")
-    @Column(unique = true, name = "card_number", length = 16)
+    @Size(min = 64, max = 64)
+    @Column(unique = true, name = "card_number", length = 64)
     private String cardNumber;
 
     @NotBlank
-    @Min(100)
-    @Max(999)
-    private Integer cvv;
+    @Size(min = 64, max = 64)
+    @Column(length = 64)
+    private String cvv;
 
     @NotNull
     @Min(0)
-    private Long balance;
+    private Integer balance;
 
     @NotBlank
-    @Size(min = 2, max = 30)
-    @Column(name = "owner_first_name", length = 30)
+    @Size(min = 64, max = 64)
+    @Column(name = "owner_first_name", length = 64)
     private String ownerFirstName;
 
     @NotBlank
-    @Size(min = 2, max = 30)
-    @Column(name = "owner_last_name", length = 30)
+    @Size(min = 64, max = 64)
+    @Column(name = "owner_last_name", length = 64)
     private String ownerLastName;
 
     @NotNull
