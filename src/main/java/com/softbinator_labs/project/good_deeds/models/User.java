@@ -54,6 +54,11 @@ public class User {
     @Min(value = 0, message = "Number of points can't be negative")
     private Integer points;
 
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
+
+    private Boolean enabled;
+
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<GeneratedVoucher> vouchers;
 

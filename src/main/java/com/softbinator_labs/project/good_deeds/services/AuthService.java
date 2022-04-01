@@ -9,6 +9,8 @@ import com.softbinator_labs.project.good_deeds.repositories.UserRepository;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -33,10 +35,14 @@ public class AuthService {
     }
 
     @SneakyThrows
-    public TokenDto login(LoginDto loginDto) {
+    public ResponseEntity<?> login(LoginDto loginDto) {
         Optional<User> inAppUser = userRepository.findByEmail(loginDto.getEmail());
         if(inAppUser.isEmpty()) {
             throw new NotFoundException("The user doesn't exist!");
+        }
+
+        if(!inAppUser.get().getEnabled()) {
+            return new ResponseEntity<>("You have to verify your account before login!", HttpStatus.FORBIDDEN);
         }
 
         MultiValueMap<String, String> loginCredentials = new LinkedMultiValueMap<>();
@@ -45,7 +51,7 @@ public class AuthService {
         loginCredentials.add("password", loginDto.getPassword());
         loginCredentials.add("grant_type", loginDto.getGrantType());
 
-        return authClient.login(loginCredentials);
+        return new ResponseEntity<>(authClient.login(loginCredentials), HttpStatus.OK);
     }
 
     @SneakyThrows
