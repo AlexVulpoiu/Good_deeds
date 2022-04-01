@@ -1,0 +1,9 @@
+cardNumber, cvv, balance, ownerFirstName, ownerLastName, expirationMonth, expirationYear
+7777000022221111, 324, 800, Alexandru, Vulpoiu, 7, 2024
+9999222266660000, 950, 3402, Mihai, Mihaescu, 1, 2023
+5555111144448888, 571, 5, Elena, Ionescu, 11, 2025
+3333000011119999, 703, 893, Alina, Popescu, 11, 2022
+4444111122227777, 496, 47, Alina, Popescu, 8, 2024
+2222000099991111, 399, 4299, Cristian, Popa, 2, 2025
+6666000088886666, 824, 598, Andrei, Florescu, 5, 2026
+1111222299994444, 435, 833, Ioana, Voicu, 6, 2024
