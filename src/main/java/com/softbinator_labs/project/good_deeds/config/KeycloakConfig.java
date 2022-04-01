@@ -46,7 +46,10 @@ class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
         http
             .cors().and().csrf().disable()
             .authorizeRequests()
-            .antMatchers("/users/register", "/login", "/refresh").permitAll()
+            .antMatchers("/login", "/refresh").permitAll()
+            .antMatchers("/users/register", "/users/processRegister", "/users/processRegisterAdmin").permitAll()
+            .antMatchers("/registerSuccess").permitAll()
+            .antMatchers("/users/verify", "/users/verifySuccess", "/users/verifyFail").permitAll()
             .antMatchers("/users/registerAdmin").hasRole("ADMIN")
             .anyRequest().authenticated();
     }
