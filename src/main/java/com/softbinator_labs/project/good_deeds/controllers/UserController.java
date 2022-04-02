@@ -71,4 +71,14 @@ public class UserController {
             return "verifyFail";
         }
     }
+
+    @GetMapping("/myVouchers")
+    public ResponseEntity<?> getMyVouchers() {
+        return userService.getMyVouchers();
+    }
+
+    @PostMapping("/purchaseVoucher/{voucherId}")
+    public ResponseEntity<?> purchaseVoucher(@PathVariable Long voucherId) {
+        return userService.purchaseVoucher(voucherId);
+    }
 }
