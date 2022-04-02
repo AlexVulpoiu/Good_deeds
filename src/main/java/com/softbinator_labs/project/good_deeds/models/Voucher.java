@@ -42,11 +42,11 @@ public class Voucher {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Voucher voucher = (Voucher) o;
-        return id.equals(voucher.id);
+        return discount.equals(voucher.discount) && company.equals(voucher.company) && price.equals(voucher.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(discount, company, price);
     }
 }
