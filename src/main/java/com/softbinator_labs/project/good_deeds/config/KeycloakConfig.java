@@ -52,6 +52,8 @@ class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
             .antMatchers("/users/verify", "/users/verifySuccess", "/users/verifyFail").permitAll()
             .antMatchers("/users/registerAdmin").hasRole("ADMIN")
             .antMatchers("/creditCards/add").hasRole("ADMIN")
+            .antMatchers("/vouchers/add", "/vouchers/edit/**", "/vouchers/delete/**").hasRole("ADMIN")
+            .antMatchers("/vouchers").authenticated()
             .anyRequest().authenticated();
     }
 }
