@@ -10,16 +10,14 @@ import com.softbinator_labs.project.good_deeds.models.Voucher;
 import com.softbinator_labs.project.good_deeds.repositories.GeneratedVoucherRepository;
 import com.softbinator_labs.project.good_deeds.repositories.UserRepository;
 import com.softbinator_labs.project.good_deeds.repositories.VoucherRepository;
+import com.softbinator_labs.project.good_deeds.utils.KeycloakHelper;
 import lombok.SneakyThrows;
 import net.bytebuddy.utility.RandomString;
-import org.keycloak.KeycloakPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -158,7 +156,7 @@ public class UserService {
 
     public ResponseEntity<?> purchaseVoucher(Long voucherId) {
 
-        User user = getCurrentUser();
+        User user = KeycloakHelper.getCurrentUser(userRepository);
         if(user == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -210,7 +208,7 @@ public class UserService {
 
     public ResponseEntity<?> getMyVouchers() {
 
-        User user = getCurrentUser();
+        User user = KeycloakHelper.getCurrentUser(userRepository);
         if(user == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -232,23 +230,5 @@ public class UserService {
         }
 
         return new ResponseEntity<>(myVouchers, HttpStatus.OK);
-    }
-
-    private User getCurrentUser() {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(!(authentication.getPrincipal() instanceof KeycloakPrincipal)) {
-            return null;
-        }
-
-        KeycloakPrincipal<?> principal = (KeycloakPrincipal<?>) authentication.getPrincipal();
-        Long id = Long.valueOf(principal.getKeycloakSecurityContext().getToken().getPreferredUsername());
-
-        Optional<User> currentUser = userRepository.findById(id);
-        if(currentUser.isEmpty()) {
-            return null;
-        }
-
-        return currentUser.get();
     }
 }

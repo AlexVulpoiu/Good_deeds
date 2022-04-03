@@ -49,11 +49,14 @@ class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
             .antMatchers("/login", "/refresh").permitAll()
             .antMatchers("/users/register", "/users/processRegister", "/users/processRegisterAdmin").permitAll()
             .antMatchers("/users/verify").permitAll()
-            .antMatchers("/users/myVouchers", "/users/purchaseVoucher/**").authenticated()
+            .antMatchers("/users/info", "/users/myVouchers", "/users/purchaseVoucher/**").authenticated()
             .antMatchers("/users/registerAdmin").hasRole("ADMIN")
             .antMatchers("/creditCards/add").hasRole("ADMIN")
             .antMatchers("/vouchers/add", "/vouchers/edit/**", "/vouchers/delete/**").hasRole("ADMIN")
             .antMatchers("/vouchers").authenticated()
+            .antMatchers("/organisations/viewAll", "/organisations/view/**").hasRole("ADMIN")
+            .antMatchers("/organisations/myOrganisation", "/organisations/add", "/organisations/edit", "/organisations/delete").authenticated()
+            .antMatchers("/organisations/delete/**").hasRole("ADMIN")
             .anyRequest().authenticated();
     }
 }
