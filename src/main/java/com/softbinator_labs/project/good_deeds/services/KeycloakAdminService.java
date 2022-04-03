@@ -2,7 +2,8 @@ package com.softbinator_labs.project.good_deeds.services;
 
 import com.softbinator_labs.project.good_deeds.clients.AuthClient;
 import com.softbinator_labs.project.good_deeds.dtos.TokenDto;
-import com.softbinator_labs.project.good_deeds.repositories.UserRepository;
+import com.softbinator_labs.project.good_deeds.models.User;
+import org.keycloak.KeycloakPrincipal;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UserResource;
@@ -10,6 +11,8 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -34,14 +37,11 @@ public class KeycloakAdminService {
 
     private final AuthClient authClient;
 
-    private final UserRepository userRepository;
-
     private RealmResource realm;
 
-    public KeycloakAdminService(Keycloak keycloak, AuthClient authClient, UserRepository userRepository) {
+    public KeycloakAdminService(Keycloak keycloak, AuthClient authClient) {
         this.keycloak = keycloak;
         this.authClient = authClient;
-        this.userRepository = userRepository;
     }
 
     @PostConstruct
@@ -87,5 +87,33 @@ public class KeycloakAdminService {
         loginCredentials.add("grant_type", "password");
 
         return authClient.login(loginCredentials);
+    }
+
+    public void addOrganiserRole() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String keycloakUserId = ((KeycloakPrincipal<?>) authentication.getPrincipal()).getName();
+        UserResource userResource = realm.users().get(keycloakUserId);
+        RoleRepresentation organiserRoleRepresentation = realm.roles().get("ROLE_ORGANISER").toRepresentation();
+        userResource.roles().realmLevel().add(Collections.singletonList(organiserRoleRepresentation));
+    }
+
+    public void removeOrganiserRole(User user) {
+
+        if(user == null) {
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String keycloakUserId = ((KeycloakPrincipal<?>) authentication.getPrincipal()).getName();
+            UserResource userResource = realm.users().get(keycloakUserId);
+            RoleRepresentation organiserRoleRepresentation = realm.roles().get("ROLE_ORGANISER").toRepresentation();
+            userResource.roles().realmLevel().remove(Collections.singletonList(organiserRoleRepresentation));
+        } else {
+
+            List<UserRepresentation> userRepresentations = realm.users().search(String.valueOf(user.getId()));
+            String keycloakUserId = userRepresentations.get(0).getId();
+            UserResource userResource = realm.users().get(keycloakUserId);
+            RoleRepresentation organiserRoleRepresentation = realm.roles().get("ROLE_ORGANISER").toRepresentation();
+            userResource.roles().realmLevel().remove(Collections.singletonList(organiserRoleRepresentation));
+        }
     }
 }

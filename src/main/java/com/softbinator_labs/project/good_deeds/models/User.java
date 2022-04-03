@@ -59,6 +59,10 @@ public class User {
 
     private Boolean enabled;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "organisation_id")
+    private Organisation organisation;
+
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<GeneratedVoucher> vouchers;
 
