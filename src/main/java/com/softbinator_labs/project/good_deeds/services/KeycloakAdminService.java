@@ -73,10 +73,8 @@ public class KeycloakAdminService {
         UserResource userResource = realm.users().get(keycloakUserId);
         RoleRepresentation userRoleRepresentation = realm.roles().get("ROLE_USER").toRepresentation();
         if(userRole.equals("ROLE_ADMIN")) {
-            RoleRepresentation organiserRoleRepresentation = realm.roles().get("ROLE_ORGANISER").toRepresentation();
             RoleRepresentation adminRoleRepresentation = realm.roles().get("ROLE_ADMIN").toRepresentation();
-            userResource.roles().realmLevel().add(List.of(userRoleRepresentation, organiserRoleRepresentation,
-                    adminRoleRepresentation));
+            userResource.roles().realmLevel().add(List.of(userRoleRepresentation, adminRoleRepresentation));
         } else {
             userResource.roles().realmLevel().add(Collections.singletonList(userRoleRepresentation));
         }

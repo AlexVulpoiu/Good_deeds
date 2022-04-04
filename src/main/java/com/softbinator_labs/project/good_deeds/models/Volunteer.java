@@ -3,7 +3,7 @@ package com.softbinator_labs.project.good_deeds.models;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -18,7 +18,7 @@ public class Volunteer {
     @EmbeddedId
     private VolunteerId id;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(length = 9)
     private EStatus status;

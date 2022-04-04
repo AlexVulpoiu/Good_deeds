@@ -87,23 +87,9 @@ public class CharityEvent {
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Donation> userDonations = new ArrayList<>();
 
-    public void addVolunteer(User user) {
-        Volunteer volunteer = Volunteer.builder().event(this).user(user).status(EStatus.CV_SENT).build();
+    public void addVolunteer(User user, Volunteer volunteer) {
         userVolunteers.add(volunteer);
         user.getEventVolunteers().add(volunteer);
-    }
-
-    public void removeVolunteer(User user) {
-        for(Iterator<Volunteer> iterator = userVolunteers.iterator(); iterator.hasNext();) {
-            Volunteer volunteer = iterator.next();
-
-            if(volunteer.getUser().equals(user) && volunteer.getEvent().equals(this)) {
-                iterator.remove();
-                volunteer.getEvent().getUserVolunteers().remove(volunteer);
-                volunteer.setUser(null);
-                volunteer.setEvent(null);
-            }
-        }
     }
 
     public void addDonation(User user, Integer amount) {
