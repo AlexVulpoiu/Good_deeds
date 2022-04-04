@@ -26,4 +26,10 @@ public class KeycloakHelper {
 
         return currentUser.get();
     }
+
+    public static Boolean currentUserIsAdmin() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return ((KeycloakPrincipal<?>) authentication.getPrincipal()).getKeycloakSecurityContext().getToken().getRealmAccess().getRoles().contains("ROLE_ADMIN");
+    }
 }
