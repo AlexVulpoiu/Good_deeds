@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -73,10 +72,6 @@ public class CharityEvent {
     @Min(0)
     @Column(name = "accepted_volunteers")
     private Integer acceptedVolunteers;
-
-    @NotNull
-    @Column(name = "cv_required")
-    private Boolean cvRequired;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Organisation organisation;

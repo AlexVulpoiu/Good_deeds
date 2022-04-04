@@ -76,9 +76,5 @@ public class CharityEventAdminDto {
     private Integer acceptedVolunteers;
 
     @NotNull
-    @JsonProperty("cv_required")
-    private Boolean cvRequired;
-
-    @NotNull
     private List<EventVolunteerDto> volunteers;
 }

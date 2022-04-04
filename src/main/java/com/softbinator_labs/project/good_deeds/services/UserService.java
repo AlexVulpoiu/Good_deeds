@@ -3,7 +3,6 @@ package com.softbinator_labs.project.good_deeds.services;
 import com.softbinator_labs.project.good_deeds.dtos.GeneratedVoucherDto;
 import com.softbinator_labs.project.good_deeds.dtos.RegisterUserDto;
 import com.softbinator_labs.project.good_deeds.dtos.TokenDto;
-import com.softbinator_labs.project.good_deeds.dtos.UserInfoDto;
 import com.softbinator_labs.project.good_deeds.models.GeneratedVoucher;
 import com.softbinator_labs.project.good_deeds.models.User;
 import com.softbinator_labs.project.good_deeds.models.Voucher;
@@ -20,7 +19,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -56,17 +54,6 @@ public class UserService {
         this.keycloakAdminService = keycloakAdminService;
         this.encoder = encoder;
         this.mailSender = mailSender;
-    }
-
-    public UserInfoDto getUser(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User doesn't exist!"));
-
-        return UserInfoDto.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .email(user.getEmail())
-                .build();
     }
 
     public List<User> getUsers() {

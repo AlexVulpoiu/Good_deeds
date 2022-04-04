@@ -73,8 +73,4 @@ public class CharityEventDto {
     @Min(0)
     @JsonProperty("accepted_volunteers")
     private Integer acceptedVolunteers;
-
-    @NotNull
-    @JsonProperty("cv_required")
-    private Boolean cvRequired;
 }
