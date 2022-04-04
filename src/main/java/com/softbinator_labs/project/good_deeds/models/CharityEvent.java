@@ -26,10 +26,10 @@ public class CharityEvent {
 
     @NotBlank
     @Size(min = 5, max = 30)
-    @Column(length = 30)
+    @Column(length = 30, unique = true)
     private String title;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(length = 6)
     private ECategory category;
