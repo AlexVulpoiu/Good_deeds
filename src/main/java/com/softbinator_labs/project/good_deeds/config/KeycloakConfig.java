@@ -59,6 +59,8 @@ class KeycloakConfig extends KeycloakWebSecurityConfigurerAdapter {
             .antMatchers("/organisations/delete/**").hasRole("ADMIN")
             .antMatchers("/charityEvents/viewAll", "charityEvents/view/**").authenticated()
             .antMatchers("/charityEvents/add", "/charityEvents/edit/**", "/charityEvents/delete/{id}").hasRole("ORGANISER")
+            .antMatchers("/donations/makeDonation/**").authenticated()
+            .antMatchers("/donations/view/**").hasRole("ADMIN")
             .anyRequest().authenticated();
     }
 }
