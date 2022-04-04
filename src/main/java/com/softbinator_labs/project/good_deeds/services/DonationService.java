@@ -100,6 +100,8 @@ public class DonationService {
         currentCreditCard.setBalance(currentCreditCard.getBalance() - newDonationDto.getAmount());
         creditCardRepository.save(currentCreditCard);
 
+        event.setCollectedMoney(event.getCollectedMoney() + newDonationDto.getAmount());
+        charityEventRepository.save(event);
         event.addDonation(user, newDonationDto.getAmount());
 
         return new ResponseEntity<>("Your donation was successfully processed! Thank you!", HttpStatus.OK);

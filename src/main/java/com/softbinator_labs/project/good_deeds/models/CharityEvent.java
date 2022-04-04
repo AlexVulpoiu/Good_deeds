@@ -76,10 +76,10 @@ public class CharityEvent {
     @ManyToOne(fetch = FetchType.LAZY)
     private Organisation organisation;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Volunteer> userVolunteers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Donation> userDonations = new ArrayList<>();
 
     public void addVolunteer(User user, Volunteer volunteer) {

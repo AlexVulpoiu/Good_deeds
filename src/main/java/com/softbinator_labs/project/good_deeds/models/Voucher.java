@@ -34,7 +34,7 @@ public class Voucher {
     @Min(1)
     private Integer price;
 
-    @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<GeneratedVoucher> generatedVouchers;
 
     @Override

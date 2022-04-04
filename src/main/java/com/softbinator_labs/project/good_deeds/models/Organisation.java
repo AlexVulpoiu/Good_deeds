@@ -30,7 +30,7 @@ public class Organisation {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL)
     private Set<CharityEvent> events;
 
     @Override
