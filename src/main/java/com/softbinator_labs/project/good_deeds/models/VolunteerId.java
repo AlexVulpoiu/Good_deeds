@@ -1,5 +1,6 @@
 package com.softbinator_labs.project.good_deeds.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -16,9 +17,11 @@ import java.util.Objects;
 public class VolunteerId implements Serializable {
 
     @Column(name = "user_id")
+    @JsonProperty("user_id")
     private Long userId;
 
     @Column(name = "event_id")
+    @JsonProperty("event_id")
     private Long eventId;
 
     @Override
