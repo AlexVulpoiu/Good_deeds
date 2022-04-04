@@ -62,7 +62,7 @@ public class CharityEventService {
                     .endDate(charityEvent.getEndDate())
                     .volunteersNeeded(charityEvent.getVolunteersNeeded())
                     .acceptedVolunteers(0)
-                    .cvRequired(charityEvent.getCvRequired()).build();
+                    .build();
             charityEventDtoList.add(charityEventDto);
         }
 
@@ -110,7 +110,6 @@ public class CharityEventService {
                 .endDate(newCharityEvent.getEndDate())
                 .volunteersNeeded(newCharityEvent.getVolunteersNeeded())
                 .acceptedVolunteers(0)
-                .cvRequired(newCharityEvent.getCvRequired())
                 .organisation(organisation)
                 .build();
         charityEventRepository.save(charityEvent);
@@ -144,7 +143,6 @@ public class CharityEventService {
         currentCharityEvent.setStartDate(editCharityEvent.getStartDate());
         currentCharityEvent.setEndDate(editCharityEvent.getEndDate());
         currentCharityEvent.setVolunteersNeeded(editCharityEvent.getVolunteersNeeded());
-        currentCharityEvent.setCvRequired(editCharityEvent.getCvRequired());
         charityEventRepository.save(currentCharityEvent);
 
         return getCharityEventAdminDto(currentCharityEvent);
@@ -191,7 +189,7 @@ public class CharityEventService {
                 .endDate(currentCharityEvent.getEndDate())
                 .volunteersNeeded(currentCharityEvent.getVolunteersNeeded())
                 .acceptedVolunteers(currentCharityEvent.getAcceptedVolunteers())
-                .cvRequired(currentCharityEvent.getCvRequired()).build();
+                .build();
 
         return new ResponseEntity<>(charityEventDto, HttpStatus.OK);
     }
@@ -227,7 +225,6 @@ public class CharityEventService {
                 .endDate(currentCharityEvent.getEndDate())
                 .volunteersNeeded(currentCharityEvent.getVolunteersNeeded())
                 .acceptedVolunteers(currentCharityEvent.getAcceptedVolunteers())
-                .cvRequired(currentCharityEvent.getCvRequired())
                 .volunteers(eventVolunteers).build();
 
         return new ResponseEntity<>(charityEventDto, HttpStatus.OK);

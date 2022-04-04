@@ -1,7 +1,6 @@
 package com.softbinator_labs.project.good_deeds.controllers;
 
 import com.softbinator_labs.project.good_deeds.dtos.NewCharityEventDto;
-import com.softbinator_labs.project.good_deeds.models.CharityEvent;
 import com.softbinator_labs.project.good_deeds.services.CharityEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -118,7 +118,7 @@ public class VolunteerService {
                     .endDate(event.getEndDate())
                     .volunteersNeeded(event.getVolunteersNeeded())
                     .acceptedVolunteers(event.getAcceptedVolunteers())
-                    .cvRequired(event.getCvRequired()).build();
+                    .build();
             myApplications.add(volunteerApplicationDto);
         }
 
